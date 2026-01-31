@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>The Attic | Memes & Stuff</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <canvas id="matrixCanvas"></canvas>
+
+    <div class="window main-window">
+        <div class="window-header">
+            <span>EXPLORER.EXE - C:\USER\ATTIC</span>
+            <div class="controls">
+                <button class="win-btn minimize"></button>
+                <button class="win-btn maximize"></button>
+                <button class="win-btn close"></button>
+            </div>
+        </div>
+
+        <div class="main-container">
+            <aside class="sidebar">
+                <div class="inset-block profile">
+                    <img src="img/imgG.gif" alt="Avatar" class="pixel-avatar">
+                </div>
+
+                <div class="inset-block stats">
+                    <a href="https://steamcommunity.com/profiles/76561199020159814/"><img src="img/labelSteam.gif"
+                            alt=""></a>
+                </div>
+                <nav class="sidebar-nav">
+                    <p class="menu-label">Навигация:</p>
+                    <div class="inset-block retro-menu">
+                        <a href="html.html">/Главная</a>
+                        <a href="about.html">/О_себе</a>
+                        <a href="playlist.html">/Плейлист</a>
+                        <a href="attic.html" class="active">/Чердак</a>
+                    </div>
+                </nav>
+            </aside>
+
+            <main class="content">
+                <div class="inset-block attic-grid-container">
+                    <p class="folder-status">Объектов: 7 | Свободно: 50.44 GB</p>
+
+                    <div class="attic-grid">
+                        <div class="file-item" onclick="openModal('img/mem1.png', 'Лето 2012, на фотке мой друг')">
+                            <div class="file-icon">🖼️</div>
+                            <span class="file-name">meme_01.jpg</span>
+                        </div>
+                        <div class="file-item" onclick="openModal('img/fon.png', 'мой рабочий стол')">
+                            <div class="file-icon">🖼️</div>
+                            <span class="file-name">fon.jpg</span>
+                        </div>
+                        <div class="file-item" onclick="openModal('img/mem3.png', 'Лето 2023')">
+                            <div class="file-icon">🖼️</div>
+                            <span class="file-name">meme_02.jpg</span>
+                        </div>
+                        <div class="file-item" onclick="openModal('img/mem4.png', 'это мой друг попросил мне сделать ему аватарку')">
+                            <div class="file-icon">🖼️</div>
+                            <span class="file-name">meme_03.jpg</span>
+                        </div>
+                        <div class="file-item" onclick="openModal('img/mem5.png', 'это мой постер')">
+                            <div class="file-icon">📷</div>
+                            <span class="file-name">meme_04.jpg</span>
+                        </div>
+                         <div class="file-item" onclick="openModal('img/meme.jpg', 'это то чем я пользуюсь')">
+                            <div class="file-icon">📷</div>
+                            <span class="file-name">technologes.jpg</span>
+                        </div>
+                         <div class="file-item" onclick="openModal('img/mem6.png', 'моя аватарка новая в телеграме')">
+                            <div class="file-icon">🖼️</div>
+                            <span class="file-name">meme_05.jpg</span>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <footer class="window-footer">
+            <div class="footer-cell">C:\ATTIC\SELECTED: 0 bytes</div>
+            <div class="footer-cell">My Computer</div>
+        </footer>
+    </div>
+
+    <!-- Модальное окно просмотра (Lightbox) -->
+    <div id="image-modal" class="modal-overlay" onclick="closeModal()">
+        <div class="window modal-window" onclick="event.stopPropagation()">
+            <div class="window-header">
+                <span id="modal-title">IMAGE_VIEWER.EXE</span>
+                <div class="controls">
+                    <button class="win-btn close" onclick="closeModal()"></button>
+                </div>
+            </div>
+            <div class="window-body modal-body">
+                <img src="" id="modal-img" alt="Full Image">
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

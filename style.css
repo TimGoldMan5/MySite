@@ -1,0 +1,604 @@
+body {
+    background-color: #008080;
+    font-family: "Tahoma", sans-serif;
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+#matrixCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -11;
+    background-color: #000000;
+}
+
+.main-window {
+    position: relative;
+    z-index: 2;
+    background: #c0c0c0;
+    width: 800px;
+    border: 2px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    box-shadow: 2px 2px 0 #000;
+}
+
+.window-header {
+    /* Растягиваем градиент так, чтобы конец и начало совпадали (для бесшовности) */
+    background: linear-gradient(90deg, #000080, #1084d0, #1084d0, #000080);
+    background-size: 200% 100%;
+
+    color: white;
+    height: 18px;
+    padding: 2px 2px 2px 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    font-size: 13px;
+
+    /* Линейная анимация в одну сторону */
+    animation: headerSlide 3s linear infinite;
+}
+
+@keyframes headerSlide {
+    from {
+        background-position: 0% 50%;
+    }
+
+    to {
+        background-position: 200% 50%;
+    }
+}
+
+.main-container {
+    display: flex;
+    padding: 10px;
+    gap: 10px;
+}
+
+.sidebar {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.inset-block {
+    border: 2px inset #ffffff;
+    background: #fff;
+    padding: 10px;
+    font-size: 15px;
+}
+
+.profile {
+    text-align: center;
+    background: #eee8d5;
+}
+
+.pixel-avatar {
+    border: 1px solid #000;
+    margin-bottom: 10px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.retro-menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 12px;
+}
+
+.retro-menu a {
+    text-decoration: none;
+    color: #000;
+    padding: 5px;
+    border: 1px solid transparent;
+}
+
+.retro-menu a:hover {
+    background: #000080;
+    color: white;
+}
+
+.window-footer {
+    display: flex;
+    border-top: 2px solid #808080;
+    background: #c0c0c0;
+    padding: 2px;
+    gap: 5px;
+}
+
+.footer-cell {
+    border: 1px inset #fff;
+    padding: 2px 10px;
+    font-size: 11px;
+    flex: 1;
+}
+
+.section-title {
+    font-weight: bold;
+    border-bottom: 1px solid #000;
+}
+
+.controls {
+    display: flex;
+    gap: 2px;
+    padding-right: 2px;
+}
+
+.win-btn {
+    width: 16px;
+    height: 14px;
+    background: #c0c0c0;
+    border: 1px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 0;
+    outline: none;
+}
+
+.win-btn:active {
+    border-color: #808080 #ffffff #ffffff #808080;
+}
+
+.minimize::after {
+    content: "";
+    width: 6px;
+    height: 2px;
+    background: black;
+    margin-top: 6px;
+}
+
+.maximize::after {
+    content: "";
+    width: 8px;
+    height: 7px;
+    border: 1px solid black;
+    border-top: 2px solid black;
+}
+
+.close {
+    margin-left: 2px;
+}
+
+.close::after {
+    content: "×";
+    font-weight: bold;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1;
+    margin-bottom: 2px;
+}
+
+
+
+/* Стили для страницы "О себе" */
+.bio h2 {
+    margin-top: 0;
+    color: #000080;
+}
+
+.bio hr {
+    border: 1px inset #fff;
+    margin: 10px 0;
+}
+
+.back-link {
+    display: block;
+    margin-top: 10px;
+    font-size: 11px;
+    color: #000080;
+    text-decoration: underline;
+}
+
+/* Общий контейнер навигации (метка + блок) */
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Само меню теперь выглядит как inset-block */
+.retro-menu {
+    background: #fff;
+    /* Белый фон как в проводнике */
+    border: 2px inset #ffffff;
+    padding: 2px;
+    /* Минимальный отступ, чтобы ссылки были вплотную к краям */
+    display: flex;
+    flex-direction: column;
+}
+
+.retro-menu a {
+    text-decoration: none;
+    color: #000;
+    padding: 4px 8px;
+    font-size: 12px;
+    display: block;
+    /* Чтобы ссылка занимала всю ширину */
+}
+
+/* Эффект при наведении */
+.retro-menu a:hover {
+    background: #000080;
+    color: #fff;
+}
+
+/* Тот самый активный класс, о котором договаривались */
+.retro-menu a.active {
+    background: #000080 !important;
+    color: #ffffff !important;
+    outline: 1px dotted #ffffff;
+    /* Точечная рамка внутри */
+    outline-offset: -2px;
+}
+
+.menu-label {
+    font-weight: bold;
+    font-size: 11px;
+    margin-left: 5px;
+}
+
+/* Расположение элементов */
+.music-top-row {
+    display: flex;
+    gap: 10px;
+    height: 180px;
+}
+
+.music-intro {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.vinyl-box {
+    width: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+
+/* Анимация вращения */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spinning {
+    animation: spin 3s linear infinite;
+}
+
+/* Таблица треков */
+.track-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.track-table th {
+    text-align: left;
+    background: #000080;
+    color: white;
+    padding: 2px 5px;
+}
+
+.track-item {
+    cursor: pointer;
+}
+
+.track-item:hover {
+    background: #eee;
+}
+
+.track-item.playing {
+    background: #000080 !important;
+    color: white;
+}
+
+audio {
+    width: 100%;
+    height: 30px;
+    margin-top: 10px;
+}
+
+/* Плеер */
+.retro-player {
+    flex: 1;
+    background: #000 !important;
+    /* Черное табло */
+    color: #00ff00;
+    /* Матричный текст */
+    padding: 10px !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.player-display {
+    border: 1px solid #555;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #051a05;
+}
+
+.display-text {
+    width: 60%;
+    font-family: 'Courier New', monospace;
+}
+
+.timer {
+    font-size: 18px;
+    font-weight: bold;
+    color: #00ff00;
+}
+
+/* Визуализатор (индикатор) */
+.visualizer {
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    height: 30px;
+}
+
+.bar {
+    width: 4px;
+    background: #00ff00;
+    height: 20%;
+    transition: height 0.1s;
+}
+
+/* Кнопки и громкость */
+.player-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-top: 10px;
+}
+
+#volume {
+    appearance: none;
+    background: #c0c0c0;
+    height: 4px;
+    border: 1px inset #fff;
+}
+
+/* Обложка */
+.cover-box {
+    width: 150px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cover-wrapper {
+    width: 120px;
+    height: 120px;
+    border: 2px solid #000;
+    overflow: hidden;
+    border-radius: 50%;
+    /* Делаем круглой */
+}
+
+.cover-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Анимация вращения картинки */
+.rotating {
+    animation: spin 5s linear infinite;
+}
+
+/* Плеер (уменьшенная высота) */
+.retro-player {
+    flex: 1;
+    background: #000 !important;
+    color: #00ff00;
+    padding: 6px !important;
+    height: 85px;
+    /* Сделали ниже */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.player-display {
+    border: 1px solid #555;
+    padding: 4px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #051a05;
+    height: 40px;
+    /* Компактный дисплей */
+}
+
+.display-main {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 75%;
+}
+
+.timer {
+    font-family: 'Courier New', monospace;
+    font-size: 18px;
+    color: #00ff00;
+    font-weight: bold;
+}
+
+.track-info {
+    overflow: hidden;
+    font-family: 'Courier New', monospace;
+    white-space: nowrap;
+    width: 100%;
+}
+
+#track-name {
+    font-size: 12px;
+    font-weight: bold;
+    display: block;
+}
+
+#track-artist {
+    font-size: 10px;
+    color: #00cc00;
+    opacity: 0.8;
+}
+
+/* Визуализатор */
+.visualizer {
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    height: 25px;
+}
+
+.bar {
+    width: 3px;
+    background: #00ff00;
+    height: 20%;
+}
+
+/* Управление */
+.player-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 4px;
+}
+
+.btn-group {
+    display: flex;
+    gap: 4px;
+}
+
+/* Обложка */
+.cover-box {
+    width: 85px;
+    height: 85px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cover-wrapper {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 2px solid #000;
+    overflow: hidden;
+}
+
+/* Контейнер сетки */
+.attic-grid-container {
+    height: 400px;
+    background: #fff !important;
+    display: flex;
+    flex-direction: column;
+}
+
+.folder-status {
+    font-size: 11px;
+    color: #555;
+    border-bottom: 1px solid #c0c0c0;
+    margin: 0 0 10px 0;
+    padding-bottom: 5px;
+}
+
+.attic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 15px;
+    padding: 10px;
+}
+
+.file-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    padding: 5px;
+    border: 1px solid transparent;
+}
+
+.file-item:hover {
+    background: rgba(0, 0, 128, 0.1);
+    border: 1px dotted #000080;
+}
+
+.file-icon {
+    font-size: 32px;
+    margin-bottom: 5px;
+}
+
+.file-name {
+    font-size: 11px;
+    word-break: break-all;
+}
+
+/* Модальное окно (Просмотр фото) */
+.modal-overlay {
+    display: none;
+    /* Скрыто по умолчанию */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-window {
+    width: auto;
+    max-width: 90%;
+}
+
+.modal-body {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.modal-body img {
+    max-width: 100%;
+    max-height: 70vh;
+    border: 2px inset #fff;
+}
